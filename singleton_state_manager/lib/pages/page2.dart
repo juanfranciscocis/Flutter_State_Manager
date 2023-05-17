@@ -6,7 +6,11 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+      appBar: AppBar(
+        title: const Text('Page 2'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      ),
+      body: Center(
       child: Text(
         'Page 2',
         style: Theme.of(context).textTheme.headline1,
