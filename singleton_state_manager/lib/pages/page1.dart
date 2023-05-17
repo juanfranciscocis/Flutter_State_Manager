@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:singleton_state_manager/services/usuario_service.dart';
 
 class Page1 extends StatelessWidget {
   const Page1({super.key});
@@ -10,7 +11,7 @@ class Page1 extends StatelessWidget {
         title: const Text('Page 1'),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: InformacionUsuario(),
+      body: usuarioService.existeUsuario ? InformacionUsuario() : Center(child: Text('No hay informacion de usuario'),),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, '/pagina2'),
         child: const Icon(Icons.arrow_forward),
