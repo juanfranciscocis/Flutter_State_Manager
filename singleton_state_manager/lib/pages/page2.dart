@@ -11,11 +11,19 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color buttonColor = Theme.of(context).colorScheme.primary;
+    final usuarioService = Provider.of<UsuarioService>(context);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Page 2'),
+          title: usuarioService.existeUsuario
+              ? Text('Page 2 - ${usuarioService.usuario!.nombre}', style: TextStyle(color: Colors.white),)
+              : Text('Page 2', style: TextStyle(color: Colors.white),),
           backgroundColor: Theme.of(context).colorScheme.primary,
           elevation: 50,
+          //back button, white
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: Center(
             child: Column(

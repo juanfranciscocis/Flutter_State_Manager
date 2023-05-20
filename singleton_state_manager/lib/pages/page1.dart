@@ -76,6 +76,8 @@ class InformacionUsuario extends StatelessWidget {
           ListTile(
             title: usuario.profesiones.length >0 ? Text(usuario.profesiones[2]) :Text('Profesion 3'),
           ),
+
+          ...usuario.profesiones.map((e) => ListTile(title: Text(e))).toList(), //UNA MEJOR FORMA DE HACERLO!!!!
         ],
       ),
 
