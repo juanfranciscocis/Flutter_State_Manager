@@ -12,8 +12,20 @@ class Page1 extends StatelessWidget {
     final usuarioService = Provider.of<UsuarioService>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Page 1'),
+        title: const Text('Page 1', style: TextStyle(color: Colors.white),),
         backgroundColor: Theme.of(context).colorScheme.primary,
+        actions: [
+
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              onPressed: () {
+                usuarioService.removerUsuario();
+              },
+              icon: const Icon(Icons.logout, color: Colors.white),
+            ),
+          )
+        ],
       ),
       body: usuarioService.existeUsuario
           ? InformacionUsuario(usuario: usuarioService.usuario!,)
