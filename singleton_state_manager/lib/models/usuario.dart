@@ -7,6 +7,5 @@ class Usuario {
   Usuario({
     required this.nombre,
     this.edad,
-
   });
 }
