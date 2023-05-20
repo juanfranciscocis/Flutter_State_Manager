@@ -18,5 +18,15 @@ class UsuarioService with ChangeNotifier{
 
   bool get existeUsuario => _usuario != null ? true : false;
 
+  set edad(int? edad){
+    this._usuario!.edad = edad;
+    notifyListeners();
+  }
+
+  set profesion(String profesion){
+    this._usuario!.profesiones.add(profesion);
+    notifyListeners();
+  }
+
 
 }

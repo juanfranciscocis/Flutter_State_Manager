@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/usuario.dart';
+import '../services/usuario_service.dart';
 
 class Page2 extends StatelessWidget {
 
@@ -25,6 +29,10 @@ class Page2 extends StatelessWidget {
                   height: 50,
                   child: Text("Establecer Usuario", style: TextStyle(color: Colors.white),),
                   onPressed: () {
+                    final usuarioService = Provider.of<UsuarioService>(context, listen: false); //listen false para que no se redibuje
+                    usuarioService.usuario = Usuario(nombre: 'Juan');
+
+
 
                 }),
 
@@ -37,7 +45,8 @@ class Page2 extends StatelessWidget {
                   height: 50,
                   child: Text("Cambiar Edad", style: TextStyle(color: Colors.white),),
                   onPressed: () {
-
+                    final usuarioService = Provider.of<UsuarioService>(context, listen: false); //listen false para que no se redibuje
+                    usuarioService.usuario!.edad = 30;
                 }),
 
                 const SizedBox(height: 20),
@@ -49,6 +58,14 @@ class Page2 extends StatelessWidget {
                   height: 50,
                   child: Text("Añadir Profesion", style: TextStyle(color: Colors.white),),
                   onPressed: () {
+
+                    final usuarioService = Provider.of<UsuarioService>(context, listen: false); //listen false para que no se redibuje
+                    usuarioService.profesion = "Ingeniero";
+                    usuarioService.profesion = "Programador";
+                    usuarioService.profesion = "Carpintero";
+
+
+
 
                 }),
 

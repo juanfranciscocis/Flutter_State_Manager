@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:singleton_state_manager/models/usuario.dart';
 
 import '../services/usuario_service.dart';
 
@@ -15,7 +16,7 @@ class Page1 extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: usuarioService.existeUsuario
-          ? InformacionUsuario()
+          ? InformacionUsuario(usuario: usuarioService.usuario!,)
           : Center(child: Text('No hay usuario seleccionado')),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, '/pagina2'),
@@ -26,8 +27,11 @@ class Page1 extends StatelessWidget {
 }
 
 class InformacionUsuario extends StatelessWidget {
-  const InformacionUsuario({
+  Usuario usuario;
+
+  InformacionUsuario({
     super.key,
+    required this.usuario,
   });
 
   @override
@@ -42,23 +46,23 @@ class InformacionUsuario extends StatelessWidget {
           Text('General',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
           ListTile(
-            title: Text('Nombre'),
+            title: Text('Nombre: ${usuario.nombre}'),
           ),
           ListTile(
-            title: Text('Edad'),
+            title: usuario.edad != null ? Text('Edad: ${usuario.edad}') : Text('Edad: No especificada'),
           ),
           const SizedBox(height: 20),
 
           Text('Profesiones',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
           ListTile(
-            title: Text('Profesion 1'),
+            title: usuario.profesiones.length >0 ? Text(usuario.profesiones[0]) :Text('Profesion 1'),
           ),
           ListTile(
-            title: Text('Profesion 2'),
+            title: usuario.profesiones.length >0 ? Text(usuario.profesiones[1]) :Text('Profesion 2'),
           ),
           ListTile(
-            title: Text('Profesion 3'),
+            title: usuario.profesiones.length >0 ? Text(usuario.profesiones[2]) :Text('Profesion 3'),
           ),
         ],
       ),
