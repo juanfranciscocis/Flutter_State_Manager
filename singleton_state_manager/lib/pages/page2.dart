@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:singleton_state_manager/services/usuario_service.dart';
+
+import '../models/usuario.dart';
 
 class Page2 extends StatelessWidget {
 
@@ -9,7 +12,14 @@ class Page2 extends StatelessWidget {
     Color buttonColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Page 2'),
+          title: StreamBuilder(
+            stream: usuarioService.usuarioStream,
+            builder: (BuildContext context, AsyncSnapshot<Usuario> snapshot) {
+              return snapshot.hasData ? Text('Page 2 - ${snapshot.data!.nombre}',style:TextStyle(color: Colors.white)) : Text('Page 2',style:TextStyle(color: Colors.white));
+            },
+
+
+          ),
           backgroundColor: Theme.of(context).colorScheme.primary,
           elevation: 50,
         ),
@@ -26,6 +36,11 @@ class Page2 extends StatelessWidget {
                   child: Text("Establecer Usuario", style: TextStyle(color: Colors.white),),
                   onPressed: () {
 
+                    final usuario = Usuario(
+                      nombre: 'Juan',
+                    );
+                    usuarioService.usuario = usuario;
+
                 }),
 
                 const SizedBox(height: 20),
@@ -38,6 +53,8 @@ class Page2 extends StatelessWidget {
                   child: Text("Cambiar Edad", style: TextStyle(color: Colors.white),),
                   onPressed: () {
 
+                      usuarioService.edad = 30;
+
                 }),
 
                 const SizedBox(height: 20),
@@ -49,7 +66,9 @@ class Page2 extends StatelessWidget {
                   height: 50,
                   child: Text("Añadir Profesion", style: TextStyle(color: Colors.white),),
                   onPressed: () {
-
+                        usuarioService.addProfesion("Ingeniero");
+                        usuarioService.addProfesion("Medico");
+                        usuarioService.addProfesion("Abogado");
                 }),
 
                 

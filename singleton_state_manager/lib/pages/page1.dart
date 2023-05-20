@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:singleton_state_manager/models/usuario.dart';
 import 'package:singleton_state_manager/services/usuario_service.dart';
 
 class Page1 extends StatelessWidget {
@@ -8,10 +9,16 @@ class Page1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Page 1'),
+        title: const Text('Page 1', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: usuarioService.existeUsuario ? InformacionUsuario() : Center(child: Text('No hay informacion de usuario'),),
+      body: StreamBuilder(
+        stream: usuarioService.usuarioStream,
+        builder: (BuildContext context, AsyncSnapshot<Usuario> snapshot){
+          return snapshot.hasData ? InformacionUsuario(usuario: usuarioService.usuario,) : Center(child: Text('No hay informacion de usuario'),);
+        }
+      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, '/pagina2'),
         child: const Icon(Icons.arrow_forward),
@@ -21,8 +28,10 @@ class Page1 extends StatelessWidget {
 }
 
 class InformacionUsuario extends StatelessWidget {
+
+  final Usuario? usuario;
   const InformacionUsuario({
-    super.key,
+    super.key, required this.usuario,
   });
 
   @override
@@ -37,23 +46,24 @@ class InformacionUsuario extends StatelessWidget {
           Text('General',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
           ListTile(
-            title: Text('Nombre'),
+            title: Text('Nombre: ${usuario!.nombre}'),
           ),
           ListTile(
-            title: Text('Edad'),
+
+            title: Text('Edad: ${usuario!.edad ?? 'No tiene edad'}'),
           ),
           const SizedBox(height: 20),
 
           Text('Profesiones',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
           ListTile(
-            title: Text('Profesion 1'),
+            title: Text(usuario!.profesiones.length > 0 ? usuario!.profesiones[0] : 'No tiene profesiones'),
           ),
           ListTile(
-            title: Text('Profesion 2'),
+            title: Text(usuario!.profesiones.length > 0 ? usuario!.profesiones[1] : 'No tiene profesiones'),
           ),
           ListTile(
-            title: Text('Profesion 3'),
+            title: Text(usuario!.profesiones.length > 0 ? usuario!.profesiones[2] : 'No tiene profesiones'),
           ),
         ],
       ),
