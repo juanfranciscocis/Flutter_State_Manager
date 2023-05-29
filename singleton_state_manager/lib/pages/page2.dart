@@ -57,6 +57,7 @@ class Page2 extends StatelessWidget {
                   height: 50,
                   child: Text("Añadir Profesion", style: TextStyle(color: Colors.white),),
                   onPressed: () {
+                    context.read<UsuarioCubit>().agregarProfesion();
 
                 }),
 
