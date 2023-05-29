@@ -12,7 +12,7 @@ class Page1 extends StatelessWidget {
         title: const Text('Page 1'),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: BlocBuilder<UsuarioCubit,UsuarioState>(builder: (BuildContext context, state){
+      body: BlocBuilder<UsuarioCubit,UsuarioState>(builder: (BuildContext context, state){ //BLOC BUILDER ES UN WIDGET QUE ME PERMITE ESCUCHAR LOS ESTADOS DE MI CUBIT
         print(state);
         if (state is UsuarioInitial) {
           return const Center(child: Text('No hay usuario seleccionado'));

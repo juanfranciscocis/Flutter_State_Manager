@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/usuario/usuario_cubit.dart';
+import '../models/usuario.dart';
 
 class Page2 extends StatelessWidget {
 
@@ -25,7 +29,10 @@ class Page2 extends StatelessWidget {
                   height: 50,
                   child: Text("Establecer Usuario", style: TextStyle(color: Colors.white),),
                   onPressed: () {
-
+                    context.read<UsuarioCubit>().seleccionarUsuario(Usuario(
+                        nombre: 'Juan Cisneros',
+                        edad: 21,
+                    ));
                 }),
 
                 const SizedBox(height: 20),
