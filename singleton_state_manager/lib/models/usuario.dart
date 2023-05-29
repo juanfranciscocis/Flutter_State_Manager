@@ -2,7 +2,7 @@ class Usuario {
 
   String? nombre;
   int? edad;
-  List<String>? profesiones =[];
+  List<String>? profesiones;
 
   Usuario({
     this.nombre,
