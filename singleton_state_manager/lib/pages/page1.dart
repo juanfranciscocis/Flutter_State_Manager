@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:singleton_state_manager/bloc/usuario/usuario_cubit.dart';
 
+import '../models/usuario.dart';
+
 class Page1 extends StatelessWidget {
   const Page1({super.key});
 
@@ -12,14 +14,18 @@ class Page1 extends StatelessWidget {
         title: const Text('Page 1'),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: BlocBuilder<UsuarioCubit,UsuarioState>(builder: (BuildContext context, state){ //BLOC BUILDER ES UN WIDGET QUE ME PERMITE ESCUCHAR LOS ESTADOS DE MI CUBIT
+      body: BlocBuilder<UsuarioCubit,UsuarioState>(builder: (BuildContext context, state) { //BLOC BUILDER ES UN WIDGET QUE ME PERMITE ESCUCHAR LOS ESTADOS DE MI CUBIT
         print(state);
         if (state is UsuarioInitial) {
           return const Center(child: Text('No hay usuario seleccionado'));
-        }else{
-          return InformacionUsuario();
+        } else if (state is UsuarioActivo) { //COMO OBTENGO LAS PROPIEDADES DE ESE ESTADO?, DART TIENE QUE ENTENDER QUE ES UN ESTADO DE TIPO USUARIO ACTIVO
+          final usuario = state.usuario;
+          return InformacionUsuario(usuario: usuario,);
+        }else{ //NULL SAFETY, NO SE PUEDE RETORNAR NULL POR ENDE RETORNAMOS EL WIDGET CENTER
+          return const Center();
         }
-        },
+
+      }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, '/pagina2'),
@@ -30,8 +36,11 @@ class Page1 extends StatelessWidget {
 }
 
 class InformacionUsuario extends StatelessWidget {
+
+  final Usuario usuario;
+
   const InformacionUsuario({
-    super.key,
+    super.key, required this.usuario,
   });
 
   @override
@@ -46,24 +55,35 @@ class InformacionUsuario extends StatelessWidget {
           Text('General',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
           ListTile(
-            title: Text('Nombre'),
+            title: Text('Nombre: ${usuario.nombre}'),
           ),
           ListTile(
-            title: Text('Edad'),
+            title: Text('Edad: ${usuario.edad}' ),
           ),
           const SizedBox(height: 20),
 
           Text('Profesiones',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
           ListTile(
-            title: Text('Profesion 1'),
+            title: Text(usuario.profesiones.length > 0 ? usuario.profesiones[0] : 'No hay profesiones'),
           ),
           ListTile(
-            title: Text('Profesion 2'),
+            title: Text(usuario.profesiones.length > 1 ? usuario.profesiones[1] : 'No hay profesiones'),
           ),
           ListTile(
-            title: Text('Profesion 3'),
+            title: Text(usuario.profesiones.length > 2 ? usuario.profesiones[2] : 'No hay profesiones'),
           ),
+
+          const SizedBox(height: 20),
+
+          Text('Profesiones Creados Con Map',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+          Divider(),
+          //OTRA FORMA DE CREAR LOS LISTTILE, PARA QUE SEAN DINAMICOS!!!
+          ...usuario.profesiones.map(
+            (profesion) => ListTile(
+              title: Text(profesion),
+            )
+          ).toList(),
         ],
       ),
 
