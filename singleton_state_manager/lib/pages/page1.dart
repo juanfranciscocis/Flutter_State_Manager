@@ -61,29 +61,10 @@ class InformacionUsuario extends StatelessWidget {
             title: Text('Edad: ${usuario.edad}' ),
           ),
           const SizedBox(height: 20),
-
-          Text('Profesiones',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-          Divider(),
-          ListTile(
-            title: Text(usuario.profesiones.length > 0 ? usuario.profesiones[0] : 'No hay profesiones'),
-          ),
-          ListTile(
-            title: Text(usuario.profesiones.length > 1 ? usuario.profesiones[1] : 'No hay profesiones'),
-          ),
-          ListTile(
-            title: Text(usuario.profesiones.length > 2 ? usuario.profesiones[2] : 'No hay profesiones'),
-          ),
-
-          const SizedBox(height: 20),
-
           Text('Profesiones Creados Con Map',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
           //OTRA FORMA DE CREAR LOS LISTTILE, PARA QUE SEAN DINAMICOS!!!
-          ...usuario.profesiones.map(
-            (profesion) => ListTile(
-              title: Text(profesion),
-            )
-          ).toList(),
+          ...?usuario.profesiones?.map((profesion) => ListTile(title: Text(profesion))).toList(),
         ],
       ),
 

@@ -19,9 +19,20 @@ class UsuarioCubit extends Cubit<UsuarioState> {
 
   void cambiarEdad(int edad) {
     final currentState = state; //ESTADO ACTUAL
+
+    //NROMALMENTE LO MEJOR QUE TENEMOS QUE HACER ES REGRESAR UN NUEVO USAURIO CON EL CAMBIO, SI EL MODELO TIENE PROPIEDADES FINAL!!!
+    // PERO ESTO TAMBIEN FUNCIONA, SI LAS PROPIEDADES NO SON FINAL
+    /*
     if(currentState is UsuarioActivo){
       currentState.usuario.edad = edad;
       emit(UsuarioActivo(currentState.usuario));
+    }
+     */
+
+    //PARA ESTO PUEDO MODIFICAR MI MODELO, USANDO COPYWITH
+    if(currentState is UsuarioActivo){
+      final usuarioActualizado = currentState.usuario.copyWith(edad: edad);
+      emit(UsuarioActivo(usuarioActualizado));
     }
   }
 
