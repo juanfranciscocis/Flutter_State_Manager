@@ -11,8 +11,17 @@ class Page1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Page 1'),
+        title: const Text('Page 1', style: TextStyle(color: Colors.white),),
         backgroundColor: Theme.of(context).colorScheme.primary,
+        elevation: 50,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.exit_to_app, color: Colors.white,),
+            onPressed: () {
+              context.read<UsuarioCubit>().borrarUsuario();
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<UsuarioCubit,UsuarioState>(builder: (BuildContext context, state) { //BLOC BUILDER ES UN WIDGET QUE ME PERMITE ESCUCHAR LOS ESTADOS DE MI CUBIT
         print(state);

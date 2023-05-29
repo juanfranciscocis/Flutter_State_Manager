@@ -46,6 +46,10 @@ class UsuarioCubit extends Cubit<UsuarioState> {
     }
   }
 
+  void borrarUsuario(){
+    emit(UsuarioInitial());
+  }
+
 
 
 
