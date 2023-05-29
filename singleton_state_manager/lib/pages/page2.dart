@@ -44,6 +44,7 @@ class Page2 extends StatelessWidget {
                   height: 50,
                   child: Text("Cambiar Edad", style: TextStyle(color: Colors.white),),
                   onPressed: () {
+                    context.read<UsuarioCubit>().cambiarEdad(30);
 
                 }),
 

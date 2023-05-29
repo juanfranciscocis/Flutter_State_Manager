@@ -17,6 +17,13 @@ class UsuarioCubit extends Cubit<UsuarioState> {
 
   void seleccionarUsuario(Usuario usuario) => emit(UsuarioActivo(usuario)); //EMIT ES UN METODO DE CUBIT QUE EMITE UN ESTADO
 
+  void cambiarEdad(int edad) {
+    final currentState = state; //ESTADO ACTUAL
+    if(currentState is UsuarioActivo){
+      currentState.usuario.edad = edad;
+      emit(UsuarioActivo(currentState.usuario));
+    }
+  }
 
 
 
