@@ -16,6 +16,13 @@ class UserBloc extends Bloc<UserEvent, UserState>{
       print("ActivateUser Called");
       emit(UserSetState(event.user));
     });
+
+    on<ChangeUserAge>((event,emit){
+      print("ChangeUserAge Called");
+      if(!state.existUser)return; //SI NO EXISTE EL USUARIO NO HAGO NADA
+      final newUser = state.user!.copyWith(edad: event.age);
+      emit(UserSetState(newUser));
+    });
   }
 
 

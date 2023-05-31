@@ -41,9 +41,12 @@ class Page2 extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                   height: 50,
                   child: Text("Cambiar Edad", style: TextStyle(color: Colors.white),),
-                  onPressed: () {
 
-                }),
+                  onPressed: BlocProvider.of<UserBloc>(context).state.existUser ? (){
+                    //LLAMAMOS AL EVENTO
+                    BlocProvider.of<UserBloc>(context,listen: false).add(ChangeUserAge(25));
+
+                }: null),
 
                 const SizedBox(height: 20),
 
