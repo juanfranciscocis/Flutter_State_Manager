@@ -18,3 +18,9 @@ abstract class UserState{//ME SIRVE PARA CREAR UNA CLASE QUE MANEJA LOS ESTADOS 
 class UserInitalState extends UserState{
   const UserInitalState() : super(existUser: false, user: null); //CUANDO SE CREA UNA INSTANCIA DE ESTA CLASE, SE VA A CREAR CON ESTOS VALORES
 }
+
+// ESTADO CUANDO SE ACTIVA EL USUARIO
+class UserSetState extends UserState{
+  final Usuario user;
+  const UserSetState(this.user) : super(existUser: true, user: user);
+}

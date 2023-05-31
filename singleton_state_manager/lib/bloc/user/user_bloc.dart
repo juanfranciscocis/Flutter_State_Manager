@@ -12,7 +12,10 @@ part 'user_event.dart';
 class UserBloc extends Bloc<UserEvent, UserState>{
   UserBloc(): super(const UserInitalState()){
     //MANEJO DE EVENTOS
-    on<ActivateUser>((event, emit) {});
+    on<ActivateUser>((event, emit) {
+      print("ActivateUser Called");
+      emit(UserSetState(event.user));
+    });
   }
 
 

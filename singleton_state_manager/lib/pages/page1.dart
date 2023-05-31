@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:singleton_state_manager/bloc/user/user_bloc.dart';
+import 'package:singleton_state_manager/models/usuario.dart';
 
 class Page1 extends StatelessWidget {
   const Page1({super.key});
@@ -14,7 +15,7 @@ class Page1 extends StatelessWidget {
       ),
       body: BlocBuilder<UserBloc,UserState>( //CADA VEZ QUE HAY UN CAMBIO EN EL ESTADO SE REDIBUJA EL BLOCKBUILDER
         builder: (context, state) {
-          return state.existUser ? InformacionUsuario() : Center(child: Text("NO HAY USUARIO"),);
+          return state.existUser ? InformacionUsuario(usuario: state.user!) : Center(child: Text("NO HAY USUARIO"),);
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -26,8 +27,11 @@ class Page1 extends StatelessWidget {
 }
 
 class InformacionUsuario extends StatelessWidget {
+
+  final Usuario usuario;
+
   const InformacionUsuario({
-    super.key,
+    super.key, required this.usuario,
   });
 
   @override
@@ -42,24 +46,16 @@ class InformacionUsuario extends StatelessWidget {
           Text('General',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
           ListTile(
-            title: Text('Nombre'),
+            title: Text('Nombre: ${usuario.nombre}'),
           ),
           ListTile(
-            title: Text('Edad'),
+            title: Text('Edad: ${usuario.edad}'),
           ),
           const SizedBox(height: 20),
 
           Text('Profesiones',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           Divider(),
-          ListTile(
-            title: Text('Profesion 1'),
-          ),
-          ListTile(
-            title: Text('Profesion 2'),
-          ),
-          ListTile(
-            title: Text('Profesion 3'),
-          ),
+          ...?usuario.profesiones?.map((profesion) => ListTile(title: Text(profesion))).toList(),
         ],
       ),
 

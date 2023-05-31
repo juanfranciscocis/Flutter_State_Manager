@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:singleton_state_manager/bloc/user/user_bloc.dart';
+import 'package:singleton_state_manager/models/usuario.dart';
 
 class Page2 extends StatelessWidget {
 
@@ -25,6 +28,8 @@ class Page2 extends StatelessWidget {
                   height: 50,
                   child: Text("Establecer Usuario", style: TextStyle(color: Colors.white),),
                   onPressed: () {
+                    //LLAMAMOS AL EVENTO
+                    BlocProvider.of<UserBloc>(context,listen: false).add(ActivateUser(Usuario(nombre: 'Juan Cisneros', edad: 21)));
 
                 }),
 
