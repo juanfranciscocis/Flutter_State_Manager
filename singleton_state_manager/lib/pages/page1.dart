@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:singleton_state_manager/bloc/user/user_bloc.dart';
 
 class Page1 extends StatelessWidget {
   const Page1({super.key});
@@ -10,7 +12,11 @@ class Page1 extends StatelessWidget {
         title: const Text('Page 1'),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: InformacionUsuario(),
+      body: BlocBuilder<UserBloc,UserState>( //CADA VEZ QUE HAY UN CAMBIO EN EL ESTADO SE REDIBUJA EL BLOCKBUILDER
+        builder: (context, state) {
+          return state.existUser ? InformacionUsuario() : Center(child: Text("NO HAY USUARIO"),);
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, '/pagina2'),
         child: const Icon(Icons.arrow_forward),
