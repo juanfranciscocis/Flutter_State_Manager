@@ -10,8 +10,17 @@ class Page1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Page 1'),
+        title: const Text('Page 1',style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.primary,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.exit_to_app,color: Colors.white,),
+            onPressed: () {
+              //LLAMAMOS AL EVENTO
+              BlocProvider.of<UserBloc>(context,listen: false).add(DeleteUser());
+            },
+          )
+        ],
       ),
       body: BlocBuilder<UserBloc,UserState>( //CADA VEZ QUE HAY UN CAMBIO EN EL ESTADO SE REDIBUJA EL BLOCKBUILDER
         builder: (context, state) {

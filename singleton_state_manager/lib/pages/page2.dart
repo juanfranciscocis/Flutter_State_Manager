@@ -56,9 +56,11 @@ class Page2 extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                   height: 50,
                   child: Text("Añadir Profesion", style: TextStyle(color: Colors.white),),
-                  onPressed: () {
+                  onPressed: BlocProvider.of<UserBloc>(context).state.existUser ?() {
+                    //LLAMAMOS AL EVENTO
+                    BlocProvider.of<UserBloc>(context,listen: false).add(AddProfession());
 
-                }),
+                }:null),
 
                 
 

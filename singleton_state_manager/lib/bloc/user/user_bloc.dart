@@ -23,6 +23,22 @@ class UserBloc extends Bloc<UserEvent, UserState>{
       final newUser = state.user!.copyWith(edad: event.age);
       emit(UserSetState(newUser));
     });
+
+    on<AddProfession>((event,emit){
+      print("AddProfession Called");
+      if(!state.existUser)return; //SI NO EXISTE EL USUARIO NO HAGO NADA
+      final profesionesLenght = state.user!.profesiones?.length ?? 0;
+      final newUser = state.user!.copyWith(profesiones: [...?state.user!.profesiones, "Profesion $profesionesLenght"]);
+      emit(UserSetState(newUser));
+    });
+
+    on<DeleteUser>((event,emit){
+      print("DeleteUser Called");
+      emit(const UserInitalState());
+    });
+
+
+
   }
 
 
